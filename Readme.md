@@ -1,0 +1,1 @@
+Hopper database lessons and exercise solutions.
