@@ -21,7 +21,8 @@ and birth_date like '%-12-25';
 
 # Exercise 4
 # Find the smallest and largest current salary from the salaries table.
-select min(salary), max(salary) from salaries where to_date > curdate();
+select min(salary), max(salary) 
+from salaries where to_date > curdate();
 
 # Exercise 5
 # Use your knowledge of built in SQL functions to generate a username for all of the employees. A username should be all lowercase, and consist of the first character of the employees first name, the first 4 characters of the employees last name, an underscore, the month the employee was born, and the last two digits of the year that they were born. Below is an example of what the first 10 rows will look like:
@@ -30,7 +31,7 @@ select lower(concat(
     substr(first_name, 1, 1), # first initial of first name
     substr(last_name, 1, 4), # first 4 of last name
 		 "_",
-		 substr(hire_date, 6, 2), # month
-		 substr(hire_date, 3, 2) # 2 yr
+		 substr(birth_date, 6, 2), # month
+		 substr(birth_date, 3, 2) # 2 yr
 )) as username,first_name, last_name, birth_date
 from employees;
