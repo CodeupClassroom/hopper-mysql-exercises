@@ -162,3 +162,35 @@ Page 3, 11-15, offset 10
 ..
 ..
 Page n, Offset = (page -1) * LIMIT */
+
+
+-- Another approach
+use employees;
+
+SELECT first_name, last_name, emp_no
+FROM employees
+WHERE hire_date LIKE '199%' 
+AND birth_date LIKE '%-12-25'
+ORDER BY hire_date
+LIMIT 5 OFFSET 0; # page 1, showing 5 results
+
+SELECT first_name, last_name, emp_no
+FROM employees
+WHERE hire_date LIKE '199%' 
+AND birth_date LIKE '%-12-25'
+ORDER BY hire_date
+LIMIT 5 OFFSET 5; # page 2, showing 5 results
+
+-- # page 1 = limit 5 offset 0
+-- # page 2 = limit 5 offset 5
+-- # page 3 = limit 5 offset 10
+-- # page 4 = limit 5 offset 15
+-- # page 5 = limit 5 offset 20
+-- # page n = limit 5 offset (n - 1)*5
+
+SELECT first_name, last_name, emp_no
+FROM employees
+WHERE hire_date LIKE '199%' 
+AND birth_date LIKE '%-12-25'
+ORDER BY hire_date
+LIMIT 5 OFFSET 45; # page 10 of the result  
