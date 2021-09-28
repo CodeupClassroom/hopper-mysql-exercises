@@ -56,7 +56,8 @@ where emp_no in (
 and gender = "F";
 
 
-# 5 Find all the employees who currently have a higher salary than the companies overall, historical average salary.
+--# 5 Find all the employees who currently have a higher salary than the 
+-- #companies overall, historical average salary (154,726 records )
 
 
 select first_name, last_name, emp_no
@@ -70,13 +71,21 @@ and emp_no IN
 	where salary > (select avg(salary) from salaries)
 
 );
--- select *
--- from employees
--- where emp_no in (
---     select emp_no
---     from salaries
---           where salary > (select avg(salary) from salaries)
---     );
+
+-- # Another approach (154,543 records). This seems to be a better way since we won't get
+-- employees whose past salary used to be > threshold, but present salary is lower (Yes! there
+--are employees whose latest salary is lower than salary in previous role/time-period) re
+
+select emp_no
+from
+(
+select emp_no
+from salaries s
+join employees e using(emp_no)
+where to_date > now() 
+and  salary > (select avg(salary) from salaries)) as s;
+
+
 
 # 6
 # How many current salaries are within 1 standard deviation of the current highest salary? (Hint: you can use a built in function to calculate the standard deviation.) What percentage of all salaries is this?
